@@ -34,7 +34,7 @@
             letter-spacing: -0.5px;
         }
 
-        .group { margin-bottom: 28px; }
+        .group { margin-bottom: 24px; }
 
         .label { 
             font-size: 13px; 
@@ -46,12 +46,10 @@
             letter-spacing: 0.5px;
         }
 
-        /* 按鈕網格 */
-        .btn-grid { 
-            display: grid; 
-            grid-template-columns: repeat(3, 1fr); 
-            gap: 8px; 
-        }
+        /* 按鈕網格：因應不同選項數量做 2/3/4 排列 */
+        .btn-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+        .btn-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+        .btn-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
 
         input[type="radio"] { display: none; }
 
@@ -66,6 +64,10 @@
             background: #FFFFFF;
             font-size: 14px;
             color: #424245;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1.2;
         }
 
         label.btn:hover { background: #F5F5F7; }
@@ -87,8 +89,8 @@
             border-radius: 12px; 
             padding: 16px; 
             font-family: "SF Mono", Menlo, monospace; 
-            font-size: 13px;
-            line-height: 1.5;
+            font-size: 14px;
+            line-height: 1.6;
             color: #1D1D1F;
             box-sizing: border-box; 
             resize: none;
@@ -121,24 +123,71 @@
         <h2>Medical Notes</h2>
         
         <div class="group">
-            <span class="label">Side</span>
-            <div class="btn-grid">
-                <input type="radio" name="side" id="L" value="Left" checked><label class="btn" for="L">Left</label>
-                <input type="radio" name="side" id="R" value="Right"><label class="btn" for="R">Right</label>
-                <input type="radio" name="side" id="BL" value="Bilateral"><label class="btn" for="BL">Bilateral</label>
+            <span class="label">Side & Part</span>
+            <div class="btn-grid" style="margin-bottom: 8px;">
+                <input type="radio" name="side" id="L" value="left" checked><label class="btn" for="L">Left</label>
+                <input type="radio" name="side" id="R" value="right"><label class="btn" for="R">Right</label>
+                <input type="radio" name="side" id="BL" value="bilateral"><label class="btn" for="BL">Bilateral</label>
+            </div>
+            <div class="btn-grid-4">
+                <input type="radio" name="part" id="Sh" value="shoulder" checked><label class="btn" for="Sh">Shoulder</label>
+                <input type="radio" name="part" id="Wr" value="wrist"><label class="btn" for="Wr">Wrist</label>
+                <input type="radio" name="part" id="Hi" value="hip"><label class="btn" for="Hi">Hip</label>
+                <input type="radio" name="part" id="Kn" value="knee"><label class="btn" for="Kn">Knee</label>
+                <input type="radio" name="part" id="Ba" value="lower back"><label class="btn" for="Ba">Back</label>
+                <input type="radio" name="part" id="Ak" value="ankle"><label class="btn" for="Ak">Ankle</label>
+                <input type="radio" name="part" id="Nk" value="neck"><label class="btn" for="Nk">Neck</label>
             </div>
         </div>
 
         <div class="group">
-            <span class="label">Part</span>
+            <span class="label">Duration</span>
+            <div class="btn-grid-4">
+                <input type="radio" name="duration" id="d_days" value="days" checked><label class="btn" for="d_days">Days</label>
+                <input type="radio" name="duration" id="d_weeks" value="weeks"><label class="btn" for="d_weeks">Weeks</label>
+                <input type="radio" name="duration" id="d_months" value="months"><label class="btn" for="d_months">Months</label>
+                <input type="radio" name="duration" id="d_years" value="years"><label class="btn" for="d_years">Years</label>
+            </div>
+        </div>
+
+        <div class="group">
+            <span class="label">Trauma</span>
+            <div class="btn-grid-2">
+                <input type="radio" name="trauma" id="t_pos" value="+" checked><label class="btn" for="t_pos">+</label>
+                <input type="radio" name="trauma" id="t_neg" value="-"><label class="btn" for="t_neg">-</label>
+            </div>
+        </div>
+
+        <div class="group">
+            <span class="label">ROM</span>
+            <div class="btn-grid-2">
+                <input type="radio" name="rom" id="r_free" value="free" checked><label class="btn" for="r_free">Free</label>
+                <input type="radio" name="rom" id="r_limit" value="limitation"><label class="btn" for="r_limit">Limitation</label>
+            </div>
+        </div>
+
+        <div class="group">
+            <span class="label">X-Ray</span>
+            <div class="btn-grid-2">
+                <input type="radio" name="xray" id="x_pos" value="+" checked><label class="btn" for="x_pos">+</label>
+                <input type="radio" name="xray" id="x_neg" value="no obvious findings"><label class="btn" for="x_neg">No obvious findings</label>
+            </div>
+        </div>
+
+        <div class="group">
+            <span class="label">Echo</span>
             <div class="btn-grid">
-                <input type="radio" name="part" id="Sh" value="Shoulder" checked><label class="btn" for="Sh">Shoulder</label>
-                <input type="radio" name="part" id="Wr" value="Wrist"><label class="btn" for="Wr">Wrist</label>
-                <input type="radio" name="part" id="Hi" value="Hip"><label class="btn" for="Hi">Hip</label>
-                <input type="radio" name="part" id="Kn" value="Knee"><label class="btn" for="Kn">Knee</label>
-                <input type="radio" name="part" id="Ba" value="Low Back"><label class="btn" for="Ba">Back</label>
-                <input type="radio" name="part" id="Ak" value="Ankle"><label class="btn" for="Ak">Ankle</label>
-                <input type="radio" name="part" id="Nk" value="Neck"><label class="btn" for="Nk">Neck</label>
+                <input type="radio" name="echo" id="e_pt" value="partial tear" checked><label class="btn" for="e_pt">Partial tear</label>
+                <input type="radio" name="echo" id="e_eff" value="effusion"><label class="btn" for="e_eff">Effusion</label>
+                <input type="radio" name="echo" id="e_neg" value="no obvious findings"><label class="btn" for="e_neg">No obvious findings</label>
+            </div>
+        </div>
+
+        <div class="group">
+            <span class="label">Suggestion</span>
+            <div class="btn-grid-2">
+                <input type="radio" name="sug_rehab" id="s_rehab" value="rehab first" checked><label class="btn" for="s_rehab">Rehab first</label>
+                <input type="radio" name="sug_rehab" id="s_inj" value="consider injection"><label class="btn" for="s_inj">Consider injection</label>
             </div>
         </div>
 
@@ -150,19 +199,25 @@
     </div>
 
     <script>
-        const templates = {
-            "Shoulder": "S: Pain during overhead activities.\nO: Positive impingement sign, limited ROM.\nA: Subacromial impingement syndrome.\nP: Physical therapy, activity modification.",
-            "Knee": "S: Pain during stair climbing/squatting.\nO: Mild effusion, joint line tenderness.\nA: Degenerative joint disease of knee.\nP: Quadriceps strengthening, weight control.",
-            "Hip": "S: Groin pain while walking.\nO: Limited internal rotation, positive FADIR test.\nA: Hip labral tear suspected.\nP: Avoid deep flexion, referral for MRI.",
-            "Low Back": "S: Localized back pain with radiculopathy.\nO: Positive SLR test, decreased lumbar ROM.\nA: Lumbar disc herniation.\nP: Core stabilization, pelvic traction.",
-            "Wrist": "S: Numbness over radial side.\nO: Positive Tinel sign.\nA: Carpal tunnel syndrome.\nP: Wrist splinting.",
-            "Ankle": "S: Ankle instability/pain.\nO: Positive anterior drawer test.\nA: Ankle ligament sprain.\nP: Balance training, bracing."
-        };
-
         function update() {
+            // 抓取所有選中的按鈕數值
             const side = document.querySelector('input[name="side"]:checked').value;
             const part = document.querySelector('input[name="part"]:checked').value;
-            let note = templates[part].replace(/S: /g, `S: ${side} `).replace(/O: /g, `O: ${side} `).replace(/A: /g, `A: ${side} `);
+            const duration = document.querySelector('input[name="duration"]:checked').value;
+            const trauma = document.querySelector('input[name="trauma"]:checked').value;
+            const rom = document.querySelector('input[name="rom"]:checked').value;
+            const xray = document.querySelector('input[name="xray"]:checked').value;
+            const echo = document.querySelector('input[name="echo"]:checked').value;
+            const suggestion = document.querySelector('input[name="sug_rehab"]:checked').value;
+
+            // 依順序拼接字串 (自動化產生純文字敘述)
+            let note = `${side} ${part} pain for ${duration}\n`;
+            note += `Trauma: ${trauma}\n`;
+            note += `ROM: ${rom}\n`;
+            note += `X-ray: ${xray}\n`;
+            note += `Echo: ${echo}\n`;
+            note += `Suggestion: ${suggestion}`;
+            
             document.getElementById('output').value = note;
         }
 
@@ -175,7 +230,10 @@
             setTimeout(() => btn.innerText = "Copy Note", 2000);
         }
 
+        // 監聽所有按鈕，一點擊即時更新文字
         document.querySelectorAll('input').forEach(i => i.addEventListener('change', update));
+        
+        // 初始載入時先執行一次
         update();
     </script>
 </body>
