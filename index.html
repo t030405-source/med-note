@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自動化英文病歷系統</title>
+    <style>
+        body { font-family: -apple-system, sans-serif; background: #f0f2f5; padding: 20px; display: flex; justify-content: center; }
+        .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 100%; max-width: 500px; }
+        h2 { color: #1a73e8; margin-top: 0; }
+        .group { margin-bottom: 20px; }
+        .label { font-weight: bold; margin-bottom: 8px; display: block; color: #555; }
+        .btn-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        input[type="radio"] { display: none; }
+        label.btn { border: 1px solid #dadce0; padding: 10px; text-align: center; border-radius: 8px; cursor: pointer; transition: 0.2s; }
+        input[type="radio"]:checked + label.btn { background: #1a73e8; color: white; border-color: #1a73e8; }
+        textarea { width: 100%; height: 160px; margin-top: 15px; border: 1px solid #dadce0; border-radius: 8px; padding: 12px; font-family: monospace; box-sizing: border-box; }
+        .copy-btn { width: 100%; background: #34a853; color: white; border: none; padding: 12px; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        .copy-btn:active { background: #2d8e47; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Medical Note Gen</h2>
+        <div class="group">
+            <span class="label">1. Side (側向)</span>
+            <div class="btn-grid">
+                <input type="radio" name="side" id="L" value="Left" checked><label class="btn" for="L">Left</label>
+                <input type="radio" name="side" id="R" value="Right"><label class="btn" for="R">Right</label>
+                <input type="radio" name="side" id="BL" value="Bilateral"><label class="btn" for="BL">Bilateral</label>
+            </div>
+        </div>
+        <div class="group">
+            <span class="label">2. Body Part (部位)</span>
+            <div class="btn-grid">
+                <input type="radio" name="part" id="Sh" value="Shoulder" checked><label class="btn" for="Sh">Shoulder</label>
+                <input type="radio" name="part" id="Kn" value="Knee"><label class="btn" for="Kn">Knee</label>
+                <input type="radio" name="part" id="Hi" value="Hip"><label class="btn" for="Hi">Hip</label>
+                <input type="radio" name="part" id="Ba" value="Low Back"><label class="btn" for="Ba">Low Back</label>
+            </div>
+        </div>
+        <div class="group">
+            <span class="label">3. Generated Note (自動生成)</span>
+            <textarea id="output" readonly></textarea>
+            <button class="copy-btn" onclick="copyNote()">Copy to Clipboard</button>
+        </div>
+    </div>
+
+    <script>
+        const templates = {
+            "Shoulder": "S: Pain during overhead activities.\nO: Positive impingement sign, limited ROM.\nA: Subacromial impingement syndrome.\nP: Physical therapy, activity modification.",
+            "Knee": "S: Pain during stair climbing/squatting.\nO: Mild effusion, joint line tenderness.\nA: Degenerative joint disease of knee.\nP: Quadriceps strengthening, weight control.",
+            "Hip": "S: Groin pain while walking.\nO: Limited internal rotation, positive FADIR test.\nA: Hip labral tear suspected.\nP: Avoid deep flexion, referral for MRI.",
+            "Low Back": "S: Localized back pain with radiculopathy.\nO: Positive SLR test, decreased lumbar ROM.\nA: Lumbar disc herniation.\nP: Core stabilization, pelvic traction."
+        };
+
+        function update() {
+            const side = document.querySelector('input[name="side"]:checked').value;
+            const part = document.querySelector('input[name="part"]:checked').value;
+            let note = templates[part].replace(/S: /g, `S: ${side} `).replace(/O: /g, `O: ${side} `).replace(/A: /g, `A: ${side} `);
+            document.getElementById('output').value = note;
+        }
+
+        function copyNote() {
+            const area = document.getElementById("output");
+            area.select();
+            navigator.clipboard.writeText(area.value);
+            alert("已複製到剪貼簿！");
+        }
+
+        document.querySelectorAll('input').forEach(i => i.addEventListener('change', update));
+        update();
+    </script>
+</body>
+</html>
